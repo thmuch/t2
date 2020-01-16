@@ -1,44 +1,38 @@
-T2 - Telnet Terminal fr IConnect, Version 1998-06-02
+T2 - Telnet Terminal fï¿½r IConnect, Version 1998-06-02
 ===========================================================================
 Copyright (c)1998 Thomas Much, Application Systems Heidelberg Software GmbH
 
-BETA-VERSION, LUFT AM 30.06.1998 AB!
+BETA-VERSION, Lï¿½UFT AM 30.06.1998 AB!
 
-T2 ist ein Telnet-Client fr IConnect, der als TTP im VT52-Emulator von
-MagiC l„uft. Beim Start von TELNET.TTP wird der Host als Kommandozeile
-bergeben (bzw. seine IP-Adresse in der Form "a.b.c.d"). Vorher (!) mu
+T2 ist ein Telnet-Client fï¿½r IConnect, der als TTP im VT52-Emulator von
+MagiC lï¿½uft. Beim Start von TELNET.TTP wird der Host als Kommandozeile
+ï¿½bergeben (bzw. seine IP-Adresse in der Form "a.b.c.d"). Vorher (!) muï¿½
 mit IConnect die Verbindung zum Server hergestellt worden sein.
 
 Da T2 im Moment VT52.PRG (oder eine passende andere VT52-Emulation) voraus-
 setzt, wird dem Server auch nur VT52 als Emulation gemeldet (aber immerhin
-kein Zeilendruckermodus oder sonstwas pr„historisches).
+kein Zeilendruckermodus oder sonstwas prï¿½historisches).
 
-Die Gr”e des Terminals wird von VT52.PRG bernommen (genauergesagt aus den
+Die Grï¿½ï¿½e des Terminals wird von VT52.PRG ï¿½bernommen (genauergesagt aus den
 Environmentvariablen LINES (bzw. ROWS) und COLUMNS; wenn diese Variablen
 nicht existieren, werden die Defaultwerte 24 und 80 verwendet). Hier gibt
-es derzeit noch eine kleine Einschr„nkung: Die maximale Anzahl der Zeilen
-bzw. Spalten kann 254 noch nicht berschreiten (und wird daher auf diesen
+es derzeit noch eine kleine Einschrï¿½nkung: Die maximale Anzahl der Zeilen
+bzw. Spalten kann 254 noch nicht ï¿½berschreiten (und wird daher auf diesen
 Wert geclippt).
 
 Beendet wird T2, indem man sich auf Serverseite (z.B. mit "exit") ausloggt.
-T2 schliet dann automatisch den benutzten Socket. Die eigentliche Telefon-
-verbindung mu man manuell per IConnect trennen.
+T2 schlieï¿½t dann automatisch den benutzten Socket. Die eigentliche Telefon-
+verbindung muï¿½ man manuell per IConnect trennen.
 
-Obwohl T2 bei mir schon problemlos l„uft, bernehme ich natrlich keine
-Garantie fr garnix. Genauer:
+Obwohl T2 bei mir schon problemlos lï¿½uft, ï¿½bernehme ich natï¿½rlich keine
+Garantie fï¿½r garnix. Genauer:
 
 
 Rechtliches:
 ------------
-T2 ist eine Betaversion. Der Anwender erlangt durch die Benutzung keinerlei
-Rechte an einer sp„teren Vollversion. Das Programm darf nur zu privaten
-Zwecken verwendet werden. Ein Upload in Mailboxen auer der ASH-Box, das
-Ablegen auf einer Web-Seite auer der des Autors, der Vertrieb auf PD-Disks,
-CD-ROMs etc. ist *untersagt*!
-
-Der Autor gibt keine Gew„hrleistung und haftet fr keine Sch„den
+Der Autor gibt keine Gewï¿½hrleistung und haftet fï¿½r keine Schï¿½den
 materieller wie immaterieller Art, die durch die Benutzung von T2
-entstehen k”nnen. Software ist nie fehlerfrei, auch diese nicht.
+entstehen kï¿½nnen. Software ist nie fehlerfrei, auch diese nicht.
 
 
 Fehlermeldungen bitte an:
@@ -53,12 +47,12 @@ Die jeweils neueste T2-Betaversion befindet sich im WorldWideWeb auf
 
 Hinweise zur Installation
 -------------------------
-Damit T2 den Telnet-Port ermitteln kann, mu ETCPATH in IConf korrekt
-gesetzt sein. In dem dort angegebenen Verzeichnis mu dann die mit
+Damit T2 den Telnet-Port ermitteln kann, muï¿½ ETCPATH in IConf korrekt
+gesetzt sein. In dem dort angegebenen Verzeichnis muï¿½ dann die mit
 PPP-Connect mitgelieferte Datei "services" liegen.
 
 
-Untersttzte RFCs
+Unterstï¿½tzte RFCs
 -----------------
 854 (telnet), 855 (options), 857 (echo), 1073 (window size),
 1091 (terminal type)
@@ -66,19 +60,19 @@ Untersttzte RFCs
 
 Bekannte Probleme
 -----------------
-"pine" l„uft noch nicht, da es sich mit VT52 nicht zufriedengibt.
+"pine" lï¿½uft noch nicht, da es sich mit VT52 nicht zufriedengibt.
 Stattdessen erstmal "elm" verwenden.
 
 
 History
 -------
 [1998-03-17]
-- erste ”ffentliche Betaversion
+- erste ï¿½ffentliche Betaversion
 [1998-03-31]
 - die Datei telnet.log wird nur noch angelegt, wenn die Kommando-
   zeilenoption -d angegeben ist
 [1998-04-28]
-- RFC 857 (ECHO) wird untersttzt
+- RFC 857 (ECHO) wird unterstï¿½tzt
 - Zeichen < ASCII 32 werden verschickt (Backspace, Ctrl-Z etc.)
 [1998-06-02]
 - Zwischenversion, bis ASH die Vollversion ausliefert
