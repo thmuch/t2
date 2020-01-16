@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 2.0//EN">
+<!-- last modified on 06.07.1998 -->
+<html>
+<head>
+<title>
+Telnet-Client f&uuml;r IConnect T2: Bedienung
+</title>
+<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+<meta name="Generator" content="UDO6 PL10 for TOS">
+<meta name="Author" content="Thomas Much">
+<link rel=home href="t2.html" title="Homepage">
+<link rel=toc href="t2.html" title="Inhaltsverzeichnis">
+</head>
+<body>
+
+<a href="t2.html"><img src="udo_hm.gif" alt="Home" border=0 width="24" height="24"></a>
+<a href="t2.html#UDOTOC"><img src="udo_up.gif" alt="Inhaltsverzeichnis" border=0 width="24" height="24"></a>
+<a href="002.html"><img src="udo_lf.gif" alt="Installation" border=0 width="24" height="24"></a>
+<a href="_a.html"><img src="udo_rg.gif" alt="Historie" border=0 width="24" height="24"></a>
+<hr>
+<img src="udo_fo.gif" width="16" height="13">&nbsp;<a href="t2.html">Telnet-Client f&uuml;r IConnect T2</a>
+<hr>
+<h1><a name="Bedienung">3 Bedienung</a></h1>
+<p>Bevor T2 benutzt werden kann, mu&szlig; mit IConnect bereits eine
+Verbindung zum Internet hergestellt worden sein. Dies geht derzeit
+noch <i>nicht</i> automatisch!
+</p>
+<p>Wenn Sie nun auf TELNET.TTP doppelklicken, sollte Ihr Desktop
+einen Dialog anzeigen, in dem Sie eine Kommandozeile eingeben
+k&ouml;nnen. T2 erkennt verschiedene <a href="#Kommandozeilenparameter">Kommandozeilenparameter</a>, erwartet
+aber mindestens die Angabe eines Hosts.
+</p>
+<p>T2 versucht nun, eine Verbindung zum gew&uuml;nschten Host
+aufzubauen. Falls dies aus irgend einem Grund nicht m&ouml;glich ist,
+wird eine der <a href="_d.html">Fehlermeldungen</a> ausgegeben. Ansonsten k&ouml;nnen sie
+nun auf dem entfernten Rechner in einem Atari-Fenster arbeiten! Wie
+dies geschieht, sollte jeder, der Telnet einsetzt, bereits wissen.
+</p>
+<p>Beendet wird T2, indem entweder mit IConnect die Verbindung zum
+Internet beendet wird oder man sich aus dem Host ausloggt (meistens
+mit dem Kommando &quot;exit&quot;) - T2 erkennt dies und beendet sich
+dann automatisch. Bei letzterer Variante mu&szlig; man die
+Telefonverbindung dann aber immer noch manuell mit IConnect trennen!
+</p>
+<ul>
+<li> 3.1 <a href="#Kommandozeilenparameter">Kommandozeilenparameter</a></li>
+<li> 3.2 <a href="#Internes">Internes</a></li>
+</ul>
+<br>
+<img src="udo_fo.gif" width="16" height="13">&nbsp;<a href="t2.html">Telnet-Client f&uuml;r IConnect T2</a>
+<br><img src="udo_fs.gif" width="20" height="13"><img src="udo_fo.gif" width="16" height="13">&nbsp;<a href="#Bedienung">Bedienung</a>
+<hr>
+<h2><a name="Kommandozeilenparameter">3.1 Kommandozeilenparameter</a></h2>
+<p>Folgende Parameter sind in der Kommandozeile erlaubt:
+</p>
+<ul>
+<li> wenn der Parameter &quot;-d&quot; (nat&uuml;rlich ohne
+Anf&uuml;hrungszeichen) in der Kommandozeile vorhanden ist, wird im
+Verzeichnis von TELNET.TTP die Datei &quot;telnet.log&quot; angelegt,
+in der alle <i>empfangenen</i> Zeichen mitprotokolliert werden -
+insbesondere sollten dort also <i>keine Pa&szlig;w&ouml;rter</i>
+auftauchen.
+<br>&nbsp;
+</li>
+<li> alle anderen Parameter werden als Hostangaben aufgefa&szlig;t,
+wobei jedoch nur zum zuletzt angegebenen Host eine Verbindung
+aufgebaut wird. Ein Host bezeichnet einen Rechner im Internet, der
+entweder durch seinen Klartextnamen (z.B.
+&quot;rzstud1.rz.uni-karlsruhe.de&quot;) oder durch seine IP-Adresse
+in der Form &quot;a.b.c.d&quot; (z.B. &quot;129.13.95.1&quot;)
+angegeben wird.
+<br>&nbsp;
+</li>
+</ul>
+<p>G&uuml;ltige Kommandozeilen w&auml;ren also (jeweils wieder ohne
+Anf&uuml;hrungszeichen)
+</p>
+<ul>
+<li> &quot;meinrechner.meinedomain.de&quot;
+<br>&nbsp;
+<br>Es wird eine Verbindung zum Host &quot;meinrechner&quot;
+hergestellt.
+<br>&nbsp;
+</li>
+<li> &quot;-d meinrechner.meinedomain.de&quot;
+<br>&nbsp;
+<br>Es wird eine Verbindung zum Host &quot;meinrechner&quot;
+hergestellt und die Protokolldatei &quot;telnet.log&quot; angelegt.
+<br>&nbsp;
+</li>
+<li> &quot;meinrechner.meinedomain.de hostxyz.org -d&quot;
+<br>&nbsp;
+<br>Es wird eine Verbindung zum Host &quot;hostxyz&quot; hergestellt
+und die Protokolldatei &quot;telnet.log&quot; angelegt.
+<br>&nbsp;
+</li>
+</ul>
+<img src="udo_fo.gif" width="16" height="13">&nbsp;<a href="t2.html">Telnet-Client f&uuml;r IConnect T2</a>
+<br><img src="udo_fs.gif" width="20" height="13"><img src="udo_fo.gif" width="16" height="13">&nbsp;<a href="#Bedienung">Bedienung</a>
+<hr>
+<h2><a name="Internes">3.2 Internes</a></h2>
+<ul>
+<li> Da T2 im Moment das MagiC beiliegende VT52.PRG (oder eine
+passende andere VT52-Emulation) voraussetzt, wird dem Server auch nur
+&quot;VT52&quot; als Terminalemulation gemeldet (aber immerhin kein
+Zeilendruckermodus oder sonstwas pr&auml;historisches).
+<br>&nbsp;
+</li>
+<li> Die Gr&ouml;&szlig;e des Terminals wird von VT52.PRG
+&uuml;bernommen (genauergesagt aus den Environmentvariablen LINES bzw.
+ROWS und COLUMNS; wenn diese Variablen nicht existieren, werden die
+Defaultwerte 24 und 80 verwendet). Hier gibt es derzeit noch eine
+kleine Einschr&auml;nkung: Die maximale Anzahl der Zeilen bzw. Spalten
+kann 254 noch nicht &uuml;berschreiten (und wird daher auf diesen Wert
+begrenzt).
+<br>&nbsp;
+</li>
+</ul>
+
+<hr>
+<a href="t2.html"><img src="udo_hm.gif" alt="Home" border=0 width="24" height="24"></a>
+<a href="t2.html#UDOTOC"><img src="udo_up.gif" alt="Inhaltsverzeichnis" border=0 width="24" height="24"></a>
+<a href="002.html"><img src="udo_lf.gif" alt="Installation" border=0 width="24" height="24"></a>
+<a href="_a.html"><img src="udo_rg.gif" alt="Historie" border=0 width="24" height="24"></a>
+</body></html>

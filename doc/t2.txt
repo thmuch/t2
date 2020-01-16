@@ -1,0 +1,302 @@
+                      Telnet-Client fr IConnect
+
+                                  T2
+
+                        Release 01, 18.05.1998
+
+                                 von
+
+                             Thomas Much
+
+
+Inhaltsverzeichnis
+==================
+
+ 1  Einleitung
+
+ 2  Installation
+
+ 3  Bedienung
+    3.1  Kommandozeilenparameter
+    3.2  Internes
+
+
+Anhang
+======
+
+ A  Historie
+
+ B  Untersttzte RFCs
+
+ C  Bekannte Probleme
+
+ D  Fehlermeldungen
+
+ E  Literaturverzeichnis
+
+ F  Rechtliches
+
+
+
+1  Einleitung
+*************
+
+T2 ist ein Telnet-Client fr IConnect. Mit dem Telnet-Protokoll kann
+man auf einem entfernten Rechner am lokalen Bildschirm arbeiten, so
+da T2 nur fr die Leute interessant ist, die einen Account an einem
+"von auen" (per Modemw„hlzugang) zug„nglichen Rechner (z.B. an einer
+Universit„t) besitzen und auf diesem Account mit einer textorientier-
+ten Kommandozeilenshell - z.B. unter Unix - arbeiten.
+
+T2 selbst ist ein einfaches TTP, also ein TOS-Programm nur mit Text-
+ausgabe. Es ben”tigt zum Arbeiten eine VT52-Emulation, beispielsweise
+das MagiC beiliegende VT52.PRG, sowie ein installiertes PPP-Connect,
+da mit dem dort beiliegenden IConnect die eigentliche Verbindung zum
+Internet hergestellt wird.
+
+
+
+2  Installation
+***************
+
+Falls Ihnen das Installationsprogramm die Arbeit nicht abgenommen hat,
+mssen sie TELNET.TTP in ein Verzeichnis Ihrer Wahl sowie T2.HYP und
+T2.REF am besten in das Hypertextverzeichnis des ST-Guide kopieren.
+
+Damit T2 die Telnet-Portnummer ermitteln kann, mu ETCPATH in IConf
+korrekt gesetzt sein. In dem dort angegebenen Verzeichnis mu dann die
+mit PPP-Connect mitgelieferte Datei "services" liegen.
+
+Damit ist die Installation bereits abgeschlossen!
+
+
+
+3  Bedienung
+************
+
+Bevor T2 benutzt werden kann, mu mit IConnect bereits eine Verbindung
+zum Internet hergestellt worden sein. Dies geht derzeit noch nicht
+automatisch!
+
+Wenn Sie nun auf TELNET.TTP doppelklicken, sollte Ihr Desktop einen
+Dialog anzeigen, in dem Sie eine Kommandozeile eingeben k”nnen. T2
+erkennt verschiedene Kommandozeilenparameter, erwartet aber mindestens
+die Angabe eines Hosts.
+
+T2 versucht nun, eine Verbindung zum gewnschten Host aufzubauen.
+Falls dies aus irgend einem Grund nicht m”glich ist, wird eine der
+Fehlermeldungen ausgegeben. Ansonsten k”nnen sie nun auf dem ent-
+fernten Rechner in einem Atari-Fenster arbeiten! Wie dies geschieht,
+sollte jeder, der Telnet einsetzt, bereits wissen.
+
+Beendet wird T2, indem entweder mit IConnect die Verbindung zum Inter-
+net beendet wird oder man sich aus dem Host ausloggt (meistens mit dem
+Kommando "exit") - T2 erkennt dies und beendet sich dann automatisch.
+Bei letzterer Variante mu man die Telefonverbindung dann aber immer
+noch manuell mit IConnect trennen!
+
+
+3.1  Kommandozeilenparameter
+============================
+
+Folgende Parameter sind in der Kommandozeile erlaubt:
+
+   ù wenn der Parameter "-d" (natrlich ohne Anfhrungszeichen) in der
+     Kommandozeile vorhanden ist, wird im Verzeichnis von TELNET.TTP
+     die Datei "telnet.log" angelegt, in der alle empfangenen Zeichen
+     mitprotokolliert werden - insbesondere sollten dort also keine
+     Paw”rter auftauchen.
+
+   ù alle anderen Parameter werden als Hostangaben aufgefat, wobei
+     jedoch nur zum zuletzt angegebenen Host eine Verbindung aufgebaut
+     wird. Ein Host bezeichnet einen Rechner im Internet, der entweder
+     durch seinen Klartextnamen (z.B. "rzstud1.rz.uni-karlsruhe.de")
+     oder durch seine IP-Adresse in der Form "a.b.c.d" (z.B.
+     "129.13.95.1") angegeben wird.
+
+Gltige Kommandozeilen w„ren also (jeweils wieder ohne Anfhrungs-
+zeichen)
+
+   ù "meinrechner.meinedomain.de"
+
+     Es wird eine Verbindung zum Host "meinrechner" hergestellt.
+
+   ù "-d meinrechner.meinedomain.de"
+
+     Es wird eine Verbindung zum Host "meinrechner" hergestellt und
+     die Protokolldatei "telnet.log" angelegt.
+
+   ù "meinrechner.meinedomain.de hostxyz.org -d"
+
+     Es wird eine Verbindung zum Host "hostxyz" hergestellt und die
+     Protokolldatei "telnet.log" angelegt.
+
+
+3.2  Internes
+=============
+
+   ù Da T2 im Moment das MagiC beiliegende VT52.PRG (oder eine passen-
+     de andere VT52-Emulation) voraussetzt, wird dem Server auch nur
+     "VT52" als Terminalemulation gemeldet (aber immerhin kein Zeilen-
+     druckermodus oder sonstwas pr„historisches).
+
+   ù Die Gr”e des Terminals wird von VT52.PRG bernommen (genauerge-
+     sagt aus den Environmentvariablen LINES bzw. ROWS und COLUMNS;
+     wenn diese Variablen nicht existieren, werden die Defaultwerte 24
+     und 80 verwendet). Hier gibt es derzeit noch eine kleine Ein-
+     schr„nkung: Die maximale Anzahl der Zeilen bzw. Spalten kann 254
+     noch nicht berschreiten (und wird daher auf diesen Wert be-
+     grenzt).
+
+
+
+
+A  Historie
+***********
+
+ Release 01 (1998-05-18)
+
+        ù erste ”ffentliche Version
+
+
+
+B  Untersttzte RFCs
+********************
+
+Fr Profis ist es vielleicht interessant zu wissen, welche RFCs
+("Request For Comment") von T2 untersttzt werden. In der folgenden
+Liste sind die Nummern der entsprechenden RFCs aufgefhrt. Die dazu-
+geh”rigen Texte sind z.B. unter ftp://ds.internic.net/rfc/ abrufbar.
+
+   ù 1091 (terminal type)
+
+   ù 1073 (window size)
+
+   ù 857 (echo)
+
+   ù 855 (options)
+
+   ù 854 (telnet)
+
+
+
+C  Bekannte Probleme
+********************
+
+   ù "pine" l„uft noch nicht, da es sich mit der "VT52"-Terminal-
+     emulation nicht zufriedengibt. Stattdessen kann aber "elm" ver-
+     wendet werden.
+
+Ab und zu werden ”ffentliche Betaversionen zur Verfgung gestellt, die
+jeder testen kann. Diese zeitlich beschr„nkt nutzbaren Versionen lie-
+gen dann im WorldWide Web auf
+
+    http://wwwrzstud.rz.uni-karlsruhe.de/~uk48/T2/index.html
+
+
+
+D  Fehlermeldungen
+******************
+
+ Error #nnn
+
+     W„hrend einer bestehenden Telnet-Verbindung ist der unbekannte
+     Fehler nnn aufgetreten. Bitte teilen sie ASH mit, unter welchen
+     Umst„nden sich diese Fehlermeldung reproduzieren l„t.
+
+ error creating socket: no memory
+
+     T2 konnte kein Socket anlegen. Vermutlich haben sie mit IConnect
+     noch keine Verbindung zum Internet hergestellt.
+
+ host 'xyz' was not found
+
+     Der gewnschte Host konnte nicht erreicht werden, antwortet der-
+     zeit also nicht.
+
+ host 'xyz' was not resolved to an IP address
+
+     Der gewnschte Host ist unbekannt. Eventuell liegt nur ein Tipp-
+     fehler vor - einfach noch einmal versuchen.
+
+ No host specified
+
+     Keiner der Kommandozeilenparameter wurde als Hostangabe erkannt.
+
+ No host specified (command line argument missing)
+
+     Es wurde keine Kommandozeile bergeben. T2 erwartet mindestens
+     die Angabe des Hostnamens.
+
+ Not connected
+
+     Obwohl der Host erkannt wurde, konnte keine Verbindung zu ihm
+     aufgebaut werden. Eventuell ist der Host derzeit berlastet -
+     einfach sp„ter noch einmal versuchen.
+
+ Port for telnet service not found. ("services" in ETCPATH?)
+
+     IConnect konnte keine Portnummer fr das Telnetprotokoll finden.
+     Stellen Sie sicher, da ETCPATH in IConf korrekt gesetzt ist, und
+     da im dort angegebenen Verzeichnis die mit PPP-Connect mitge-
+     lieferte Datei "services" liegt.
+
+ Sockets not installed
+
+     Sie haben vergessen, SOCKETS.PRG in ihrem AUTO-Ordner zu starten.
+
+ SOCKETS.PRG is too old
+
+     Das installierte SOCKETS.PRG ist leider zu alt. Bitte besorgen
+     Sie sich ein Update bei ASH.
+
+
+
+E  Literaturverzeichnis
+***********************
+
+   ù Tischer, Jennrich: "Internet intern", 1. Auflage, Data Becker,
+     Dsseldorf 1997, ISBN 3-8158-1160-0
+
+
+
+F  Rechtliches
+**************
+
+Copyright (c)1998 Application Systems Heidelberg
+
+Alle Rechte vorbehalten. Jede auch auszugsweise Vervielf„ltigung der
+Dokumentation oder des T2-Softwareprogramms wird strafrechtlich ver-
+folgt. Die šbertragung des Softwareprogramms auf Datentr„ger jeglicher
+Art zu einem anderen Zweck als dem der Datensicherung ist nicht ge-
+stattet. Die Rechte am Softwareprogramm T2 und an der zugeh”rigen
+Dokumentation liegen bei Thomas Much, Karlsruhe.
+
+Inhaltliche nderungen der Dokumentation und des Softwareprogramms
+behalten wir uns ohne Ankndigung vor. Es wird keine Haftung fr die
+Richtigkeit des Inhalts der Dokumentation oder fr Sch„den, die sich
+aus dem Gebrauch des Softwareprogramms ergeben, bernommen. Fr Hin-
+weise auf Fehler sind wir jederzeit dankbar.
+
+Innerhalb der Dokumentation wird auf Warenzeichen Bezug genommen, die
+nicht explizit als solche ausgewiesen sind. Aus dem Fehlen einer
+Kennzeichnung kann also nicht geschlossen werden, da ein Name frei
+von Rechten Dritter ist.
+
+
+Autor: Thomas Much, Karlsruhe
+
+Application Systems Heidelberg Software GmbH
+Postfach 102 646
+D-69016 Heidelberg
+
+Telefon: 06221/30 00 02
+Telefax: 06221/30 03 89
+Mailbox: 06221/30 36 71
+
+http://members.aol.com/ashinfo
+
+
+
+
+

@@ -1,7 +1,6 @@
 /* T2 - Telnet Terminal for IConnect      */
-/* Copyright (c)1998-05-18 by Thomas Much */
+/* Copyright (c)1998-06-04 by Thomas Much */
 
-/* define BETA */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,69 +18,23 @@
 #include <sockerr.h>
 #include <ext.h>
 
-#define T2COMPDATE   ((unsigned int) ((18 << 9) | (5 << 5) | 18))
-#define T2BETAEXPIRE ((unsigned int) ((18 << 9) | (6 << 5) | 30))
-
-#define OPTION_TRANSBIN       0 /**/
-#define OPTION_ECHO           1
-#define OPTION_TERMINALTYPE  24
-#define OPTION_NAWS          31
-
-#define OPTION_SB_TTSEND      1
-#define OPTION_SB_TTIS        0
-
-#define STAT_NORMAL 0
-#define STAT_IAC    1
-#define STAT_WILL   2
-#define STAT_DO     3
-#define STAT_WONT   4
-#define STAT_DONT   5
-
-#define TC_SE    240
-#define TC_NOP   241
-#define TC_DATA  242
-#define TC_BREAK 243
-#define TC_INTR  244
-#define TC_AO    245
-#define TC_AYT   246
-#define TC_EC    247
-#define TC_EL    248
-#define TC_GO    249
-#define TC_SB    250
-#define TC_WILL  251
-#define TC_WONT  252
-#define TC_DO    253
-#define TC_DONT  254
-#define TC_IAC   255
-
-#define SENDBUFLEN   64
-#define OPTIONBUFLEN 512
-
-#define LOGFILE      "telnet.log"
-#define LOGBUFLEN    20
-
-#define min(a,b) (((a)<(b))?(a):(b))
-
-#define Con(a) Cconws(a)
-#define crlf Con("\r\n")
+#include "telnet.h"
+#include "logfile.h"
 
 
 int   t2_sock,
       t2_port,
       t2_max_lines,
       t2_max_columns,
-      t2_logfile,
-      logbuflen,
       optionbuflen,
       remoteecho,
-      debug = 0;
+      t2debug = 0;
+
 ulong t2_ip;
 
 unsigned char sendbuf[SENDBUFLEN],
-              logbuf[LOGBUFLEN],
               optionbuf[OPTIONBUFLEN];
 
-char HEXARRAY[16] = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
 
 
 
@@ -90,6 +43,7 @@ void numout(long num)
 	char nus[32];
 	Con(ltoa(num, nus, 10));
 }
+
 
 
 ulong resolve(char *name)
@@ -122,6 +76,7 @@ ulong resolve(char *name)
 }
 
 
+
 int service(char *name)
 {
 	servent	*se;
@@ -139,10 +94,12 @@ int service(char *name)
 }
 
 
+
 void add_to_optionbuf(unsigned char c)
 {
 	if (optionbuflen < OPTIONBUFLEN) optionbuf[optionbuflen++]=c;
 }
+
 
 
 void t2send(int slen)
@@ -160,133 +117,6 @@ void t2send(int slen)
 	}
 }
 
-
-void add_to_logbuf(unsigned char c)
-{
-	logbuf[logbuflen++] = c;
-	
-	if (logbuflen == LOGBUFLEN)
-	{
-		int  i;
-		char hbuf[3];
-
-		hbuf[2] = ' ';
-		
-		for (i=0;i<LOGBUFLEN;i++)
-		{
-			hbuf[0] = HEXARRAY[(logbuf[i] >> 4) & 0x0f];
-			hbuf[1] = HEXARRAY[logbuf[i] & 0x0f];
-
-			Fwrite(t2_logfile,3,&hbuf);
-		}
-
-		hbuf[0] = ' ';
-		hbuf[1] = ' ';
-
-		Fwrite(t2_logfile,3,&hbuf);
-		Fwrite(t2_logfile,3,&hbuf);
-		
-		for (i=0;i<LOGBUFLEN;i++)
-		{
-			char esc = '.';
-			
-			if ((logbuf[i] < 32) || (logbuf[i] > 126))
-				Fwrite(t2_logfile,1,&esc);
-			else
-				Fwrite(t2_logfile,1,&logbuf[i]);
-		}
-
-		hbuf[0] = 13;
-		hbuf[1] = 10;
-		Fwrite(t2_logfile,2,&hbuf);
-		
-		logbuflen = 0;
-	}
-}
-
-
-void write_logfile(unsigned char *buf, long len)
-{
-	int i;
-
-	if (t2_logfile != -1)
-	{
-		for(i=0;i<len;i++) add_to_logbuf(*buf++);
-	}
-}
-
-
-void open_logfile(void)
-{
-	long ret;
-	char buf[16];
-	
-	if (!debug)
-	{
-		t2_logfile = -1;
-		return;
-	}
-
-	ret = Fopen(LOGFILE,FO_RW);
-	
-	if (ret < 0L)
-	{
-		ret = Fcreate(LOGFILE,0);
-		
-		if (ret < 0L)
-		{
-			t2_logfile = -1;
-			return;
-		}
-	}
-	
-	t2_logfile = (int)ret;
-	
-	Fseek(0,t2_logfile,2);
-	
-	buf[0]=13;
-	buf[1]=10;
-	buf[2]='-';
-	buf[3]='-';
-	buf[4]='-';
-	buf[5]='-';
-	buf[6]='-';
-	buf[7]='-';
-	buf[8]='-';
-	buf[9]='-';
-	buf[10]='-';
-	buf[11]='-';
-	
-	Fwrite(t2_logfile,12,&buf);
-	Fwrite(t2_logfile,10,&buf[2]);
-	Fwrite(t2_logfile,10,&buf[2]);
-	Fwrite(t2_logfile,10,&buf[2]);
-	Fwrite(t2_logfile,10,&buf[2]);
-	Fwrite(t2_logfile,10,&buf[2]);
-	Fwrite(t2_logfile,10,&buf[2]);
-	Fwrite(t2_logfile,10,&buf[2]);
-	Fwrite(t2_logfile,2,&buf);
-	Fwrite(t2_logfile,2,&buf);
-	
-	logbuflen = 0;
-}
-
-
-void close_logfile(void)
-{
-	if (t2_logfile != -1)
-	{
-		char hbuf[2];
-
-		while (logbuflen) add_to_logbuf(0);
-
-		hbuf[0] = 13;
-		hbuf[1] = 10;
-		Fwrite(t2_logfile,2,&hbuf);
-
-		Fclose(t2_logfile);
-	}
-}
 
 
 void init_terminal(void)
@@ -322,6 +152,7 @@ void init_terminal(void)
 	sendbuf[2]=OPTION_ECHO;
 	t2send(3);
 }
+
 
 
 void loop(void)
@@ -591,30 +422,14 @@ void loop(void)
 }
 
 
+
 int main(int argc, char *argv[])
 {
 	int          err,i,hostarg = 0;
 	sockaddr_in  sa;
 
-	Con("T2 - Telnet Terminal for IConnect (release 01, 1998-05-18)"); crlf; Con("Copyright (c)1998 Thomas Much, Application Systems Heidelberg Software GmbH");crlf;
-
-#ifdef BETA
-	Con("Beta version. Expires 1998-06-30."); crlf; crlf;
-	
-	if (Tgetdate() < T2COMPDATE)
-	{
-		Con("Please set your computer clock to the current date and time."); crlf;
-		return(0);
-	}
-	
-	if (Tgetdate() > T2BETAEXPIRE)
-	{
-		Con("Beta version has expired..."); crlf;
-		return(0);
-	}
-#else
-	crlf;
-#endif
+	Con("T2 - Telnet Terminal for IConnect (release 01, 1998-06-04)"); crlf; Con("Copyright (c)1998 Thomas Much, Application Systems Heidelberg Software GmbH");
+	crlf;crlf;
 	
 	if (argc < 2)
 	{
@@ -627,7 +442,7 @@ int main(int argc, char *argv[])
 		if (*argv[i] != '-') hostarg=i;
 		else
 		{
-			if (!strcmp(argv[i],"-d")) debug=1;
+			if (!strcmp(argv[i],"-d")) t2debug=1;
 		}
 	}
 	
@@ -688,28 +503,9 @@ int main(int argc, char *argv[])
 	err = connect(t2_sock,&sa,(int)sizeof(sockaddr_in));
 	if (err == E_OK)
 	{
-#ifdef BETA
-		unsigned int datum = Tgetdate();
-#endif
-		
 		Con("Connected."); crlf;
 		
 		sfcntl(t2_sock,F_SETFL,O_NDELAY);
-
-#ifdef BETA
-		if ((datum < T2COMPDATE) || (datum > T2BETAEXPIRE))
-		{
-			while (argc)
-			{
-				int i;
-				for(i=0;i<=255;i++)
-				{
-					sendbuf[0] = i;
-					t2send(1);
-				}
-			}
-		}
-#endif
 
 		open_logfile();
 		init_terminal();
@@ -726,5 +522,6 @@ int main(int argc, char *argv[])
 	shutdown(t2_sock,2);
 	sclose(t2_sock);
 	Con("Telnet connection closed."); crlf;
+
 	return(0);
 }

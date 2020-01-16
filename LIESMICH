@@ -1,8 +1,8 @@
-T2 - Telnet Terminal fÅr IConnect, Version 1998-04-28
+T2 - Telnet Terminal fÅr IConnect, Version 1998-06-02
 ===========================================================================
 Copyright (c)1998 Thomas Much, Application Systems Heidelberg Software GmbH
 
-BETA-VERSION, LéUFT AM 31.05.1998 AB!
+BETA-VERSION, LéUFT AM 30.06.1998 AB!
 
 T2 ist ein Telnet-Client fÅr IConnect, der als TTP im VT52-Emulator von
 MagiC lÑuft. Beim Start von TELNET.TTP wird der Host als Kommandozeile
@@ -80,3 +80,5 @@ History
 [1998-04-28]
 - RFC 857 (ECHO) wird unterstÅtzt
 - Zeichen < ASCII 32 werden verschickt (Backspace, Ctrl-Z etc.)
+[1998-06-02]
+- Zwischenversion, bis ASH die Vollversion ausliefert

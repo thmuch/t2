@@ -1,20 +1,16 @@
-;>>>>>>> DEFAULT.PRJ for use with single module programs <<<<<<<<
-
-telnet.ttp        ; name of executable program is topmost window
+telnet.ttp
 .C [-C]
 .L []
 .S []
-=                  ; list of modules follows...
+=
 
 PCVSTART.S
 
-telnet.c          ; compile topmost window
+telnet.c
+logfile.c
 
-;PCFLTLIB.LIB       ; floating point library
-PCSTDLIB.LIB       ; standard library
-
-PCEXTLIB.LIB       ; extended library
-PCTOSLIB.LIB       ; TOS library
+PCSTDLIB.LIB
+PCEXTLIB.LIB
+PCTOSLIB.LIB
 
 SOCKLIB.LIB
-;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
