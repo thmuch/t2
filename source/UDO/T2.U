@@ -1,0 +1,323 @@
+########################################
+# @(#) Dokmentation zu T2
+# @(#) Thomas Much, 18.05.1998
+########################################
+
+!language german
+
+!raw [tex] \documentstyle[11pt,german]{article}
+!raw [stg] @subject "Dokumentation/Utilities"
+!raw [stg] @options "+z"
+
+!docinfo [title]   Telnet-Client fÅr IConnect
+!docinfo [program] T2
+!docinfo [date]    Release 01, 18.05.1998
+!docinfo [author]  Thomas Much
+
+!use_auto_toptocs    [html,stg]
+!use_auto_subtocs    [html,stg]
+!use_auto_subsubtocs [html,stg]
+!use_about_udo       [html,stg]
+!no_effects          [asc]
+
+!html_merge_subnodes
+!html_merge_subsubnodes
+
+########################################
+
+!begin_document
+!maketitle
+!tableofcontents
+
+!node Einleitung
+
+!image C:\Programm\PureC\SOURCE\telnet\UDO\t2
+
+!index ModemwÑhlzugang
+!index UniversitÑt
+!index Account
+!index Kommandozeilenshell
+!index Unix
+!index entfernter Rechner
+T2 ist ein Telnet-Client fÅr IConnect. Mit dem Telnet-Protokoll kann man auf einem
+entfernten Rechner am lokalen Bildschirm arbeiten, so daû T2 nur fÅr die Leute
+interessant ist, die einen Account an einem ""von auûen"" (per ModemwÑhlzugang)
+zugÑnglichen Rechner (z.B. an einer UniversitÑt) besitzen und auf diesem Account
+mit einer textorientier!-ten Kommandozeilenshell --- z.B. unter Unix --- arbeiten.
+
+!index TTP
+!index TOS-Programm
+!index Textausgabe
+T2 selbst ist ein einfaches TTP, also ein TOS-Programm nur mit Text!-ausgabe. Es benîtigt
+zum Arbeiten eine VT52-Emulation, beispielsweise das MagiC beiliegende VT52.PRG, sowie
+ein installiertes PPP-Connect, da mit dem dort beiliegenden IConnect die eigentliche
+Verbindung zum Internet hergestellt wird.
+
+
+!node Installation
+
+!index Installation
+!index TELNET.TTP
+!index T2.HYP
+!index ST-Guide
+Falls Ihnen das Installationsprogramm die Arbeit nicht abgenommen hat,
+mÅssen sie TELNET.TTP in ein Verzeichnis Ihrer Wahl sowie T2.HYP und T2.REF
+am besten in das Hypertextverzeichnis des ST-Guide kopieren.
+
+!index ETCPATH
+!index IConf
+!index services
+!index PPP-Connect
+!index Portnummer
+Damit T2 die Telnet-Portnummer ermitteln kann, muû ETCPATH in IConf korrekt
+gesetzt sein. In dem dort angegebenen Verzeichnis muû dann die mit
+PPP-Connect mitgelieferte Datei ""services"" liegen.
+
+Damit ist die Installation bereits abgeschlossen!
+
+
+!node Bedienung
+
+!index IConnect
+!index Internet
+Bevor T2 benutzt werden kann, muû mit IConnect bereits eine Verbindung zum
+Internet hergestellt worden sein. Dies geht derzeit noch (!I)nicht(!i) automatisch!
+
+!index TELNET.TTP
+!index Desktop
+Wenn Sie nun auf TELNET.TTP doppelklicken, sollte Ihr Desktop einen Dialog
+anzeigen, in dem Sie eine Kommandozeile eingeben kînnen. T2 erkennt verschiedene
+Kommandozeilenparameter, erwartet aber mindestens die Angabe eines Hosts.
+
+T2 versucht nun, eine Verbindung zum gewÅnschten Host aufzubauen. Falls dies aus irgend
+einem Grund nicht mîglich ist, wird eine der Fehlermeldungen ausgegeben. Ansonsten
+kînnen sie nun auf dem ent!-fernten Rechner in einem Atari-Fenster arbeiten! Wie dies
+geschieht, sollte jeder, der Telnet einsetzt, bereits wissen.
+
+!index ausloggen
+!index Beenden
+!index exit
+!index Telefonverbindung
+Beendet wird T2, indem entweder mit IConnect die Verbindung zum Inter!-net beendet wird
+oder man sich aus dem Host ausloggt (meistens mit dem Kommando ""exit"") --- T2 erkennt
+dies und beendet sich dann automatisch. Bei letzterer Variante muû man die Telefonverbindung
+dann aber immer noch manuell mit IConnect trennen!
+
+
+!subnode Kommandozeilenparameter
+
+!index Kommandozeile
+Folgende Parameter sind in der Kommandozeile erlaubt:
+!begin_itemize
+!index -d
+!index Protokolldatei
+!index telnet.log
+!item wenn der Parameter ""-d"" (natÅrlich ohne AnfÅhrungszeichen) in der Kommandozeile
+ vorhanden ist, wird im Verzeichnis von TELNET.TTP die Datei ""telnet.log"" angelegt, in
+ der alle (!I)empfangenen(!i) Zeichen mitprotokolliert werden --- insbesondere sollten dort
+ also (!I)keine Paûwîrter(!i) auftauchen.
+!index Host
+!item alle anderen Parameter werden als Hostangaben aufgefaût, wobei jedoch nur zum
+ zuletzt angegebenen Host eine Verbindung aufgebaut wird. Ein Host bezeichnet einen Rechner
+ im Internet, der entweder durch seinen Klartextnamen (z.B. ""rzstud1.rz.uni-karlsruhe.de"")
+ oder durch seine IP-Adresse in der Form ""a.b.c.d"" (z.B. ""129.13.95.1"") angegeben wird.
+!end_itemize
+
+GÅltige Kommandozeilen wÑren also (jeweils wieder ohne AnfÅhrungs!-zeichen)
+!begin_itemize
+!item ""meinrechner.meinedomain.de""
+
+Es wird eine Verbindung zum Host ""meinrechner"" hergestellt.
+!item ""-d meinrechner.meinedomain.de""
+
+Es wird eine Verbindung zum Host ""meinrechner"" hergestellt und die Protokolldatei
+""telnet.log"" angelegt.
+!item ""meinrechner.meinedomain.de hostxyz.org -d""
+
+Es wird eine Verbindung zum Host ""hostxyz"" hergestellt und die Protokolldatei
+""telnet.log"" angelegt.
+!end_itemize
+
+
+!subnode Internes
+
+!index VT52
+!index VT52.PRG
+!index MagiC
+!index Emulation
+!index Terminal!!Emulation
+!begin_itemize
+!item Da T2 im Moment das MagiC beiliegende VT52.PRG (oder eine passen!-de
+ andere VT52-Emulation) voraussetzt, wird dem Server auch nur ""VT52"" als
+ Terminalemulation gemeldet (aber immerhin kein Zeilen!-druckermodus oder sonstwas
+ prÑhistorisches).
+!index Terminal!!Grîûe
+!index LINES
+!index ROWS
+!index COLUMNS
+!index Spalten
+!index Zeilen
+!item Die Grîûe des Terminals wird von VT52.PRG Åbernommen (genauerge!-sagt aus den
+ Environmentvariablen LINES bzw. ROWS und COLUMNS; wenn diese Variablen
+ nicht existieren, werden die Defaultwerte 24 und 80 verwendet). Hier gibt
+ es derzeit noch eine kleine Ein!-schrÑnkung: Die maximale Anzahl der Zeilen
+ bzw. Spalten kann 254 noch nicht Åberschreiten (und wird daher auf diesen
+ Wert be!-grenzt).
+!end_itemize
+
+
+!begin_appendix
+
+!node Historie
+
+!begin_description
+!item [Release 01 (1998-05-18)]
+!begin_itemize
+!item erste îffentliche Version
+!end_itemize
+!end_description
+
+
+!node UnterstÅtzte RFCs
+
+!index RFC
+!index RFC!!1091
+!index RFC!!1073
+!index RFC!!857
+!index RFC!!855
+!index RFC!!854
+FÅr Profis ist es vielleicht interessant zu wissen, welche RFCs (""Request For Comment"")
+von T2 unterstÅtzt werden. In der folgenden Liste sind die Nummern der entsprechenden RFCs
+aufgefÅhrt. Die dazu!-gehîrigen Texte sind z.B. unter ftp://ds.internic.net/rfc/ abrufbar.
+
+!begin_itemize
+!item 1091 (terminal type)
+!item 1073 (window size)
+!item 857 (echo)
+!item 855 (options)
+!item 854 (telnet)
+!end_itemize
+
+
+!node Bekannte Probleme
+
+!index pine
+!index elm
+!index VT52
+!begin_itemize
+!item ""pine"" lÑuft noch nicht, da es sich mit der ""VT52""-Terminal!-emulation nicht zufriedengibt.
+Stattdessen kann aber ""elm"" ver!-wendet werden.
+!end_itemize
+
+!index Betaversion
+Ab und zu werden îffentliche Betaversionen zur VerfÅgung gestellt, die jeder testen kann.
+Diese zeitlich beschrÑnkt nutzbaren Versionen lie!-gen dann im WorldWide Web auf
+!begin_verbatim
+    http://wwwrzstud.rz.uni-karlsruhe.de/~uk48/T2/index.html
+!end_verbatim
+
+
+!node Fehlermeldungen
+
+!index Fehler
+!begin_description
+!index Error #nnn
+!item [Error #nnn]
+
+WÑhrend einer bestehenden Telnet-Verbindung ist der unbekannte Fehler nnn aufgetreten.
+Bitte teilen sie ASH mit, unter welchen UmstÑnden sich diese Fehlermeldung reproduzieren
+lÑût.
+!index error creating socket: no memory
+!item [error creating socket: no memory]
+
+T2 konnte kein Socket anlegen. Vermutlich haben sie mit IConnect noch keine Verbindung
+zum Internet hergestellt.
+!index host 'xyz' was not found
+!item [host 'xyz' was not found]
+
+Der gewÅnschte Host konnte nicht erreicht werden, antwortet der!-zeit also nicht.
+!index host 'xyz' was not resolved to an IP address
+!item [host 'xyz' was not resolved to an IP address]
+
+Der gewÅnschte Host ist unbekannt. Eventuell liegt nur ein Tipp!-fehler vor --- einfach
+noch einmal versuchen.
+!index No host specified
+!item [No host specified]
+
+Keiner der Kommandozeilenparameter wurde als Hostangabe erkannt.
+!index No host specified (command line argument missing)
+!item [No host specified (command line argument missing)]
+
+Es wurde keine Kommandozeile Åbergeben. T2 erwartet mindestens die Angabe des Hostnamens.
+!index Not connected
+!item [Not connected]
+
+Obwohl der Host erkannt wurde, konnte keine Verbindung zu ihm aufgebaut werden. Eventuell ist
+der Host derzeit Åberlastet --- einfach spÑter noch einmal versuchen.
+!index Port for telnet service not found. ("services" in ETCPATH?)
+!item [Port for telnet service not found. ("services" in ETCPATH?)]
+
+IConnect konnte keine Portnummer fÅr das Telnetprotokoll finden. Stellen Sie sicher,
+daû ETCPATH in IConf korrekt gesetzt ist, und daû im dort angegebenen Verzeichnis die
+mit PPP-Connect mitge!-lieferte Datei ""services"" liegt.
+!index Sockets not installed
+!item [Sockets not installed]
+
+Sie haben vergessen, SOCKETS.PRG in ihrem AUTO-Ordner zu starten.
+!index SOCKETS.PRG is too old
+!item [SOCKETS.PRG is too old]
+
+Das installierte SOCKETS.PRG ist leider zu alt. Bitte besorgen Sie sich ein Update bei ASH.
+!end_description
+
+
+!node Literaturverzeichnis
+
+!begin_itemize
+!item Tischer, Jennrich: (!I)""Internet intern""(!i), 1. Auflage, Data Becker, DÅsseldorf 1997, ISBN 3-8158-1160-0
+!end_itemize
+
+
+!node Rechtliches
+
+!index Copyright
+Copyright (!copyright)1998 Application Systems Heidelberg
+
+Alle Rechte vorbehalten. Jede auch auszugsweise VervielfÑltigung der 
+Dokumentation oder des T2-Softwareprogramms wird strafrechtlich 
+ver!-folgt. Die öbertragung des Softwareprogramms auf DatentrÑger 
+jeglicher Art zu einem anderen Zweck als dem der Datensicherung ist 
+nicht ge!-stattet. Die Rechte am Softwareprogramm T2 und an der zugehîrigen Dokumentation
+liegen bei Thomas Much, Karlsruhe.
+
+Inhaltliche énderungen der Dokumentation und des Softwareprogramms behalten
+wir uns ohne AnkÅndigung vor. Es wird keine Haftung fÅr die 
+Richtigkeit des Inhalts der Dokumentation oder fÅr SchÑden, die sich aus 
+dem Gebrauch des Softwareprogramms ergeben, Åbernommen. FÅr Hin!-weise 
+auf Fehler sind wir jederzeit dankbar.
+
+Innerhalb der Dokumentation wird auf Warenzeichen Bezug
+genommen, die nicht explizit als solche ausgewiesen sind. Aus dem 
+Fehlen einer Kennzeichnung kann also nicht geschlossen werden, daû ein
+Name frei von Rechten Dritter ist.
+
+!begin_verbatim
+
+Autor: Thomas Much, Karlsruhe
+
+Application Systems Heidelberg Software GmbH
+Postfach 102 646
+D-69016 Heidelberg
+
+Telefon: 06221/30 00 02
+Telefax: 06221/30 03 89
+Mailbox: 06221/30 36 71
+
+http://members.aol.com/ashinfo
+
+!end_verbatim
+
+
+!end_appendix
+
+!end_document

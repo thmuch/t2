@@ -1,5 +1,7 @@
 /* T2 - Telnet Terminal for IConnect      */
-/* Copyright (c)1998-04-28 by Thomas Much */
+/* Copyright (c)1998-05-18 by Thomas Much */
+
+/* define BETA */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,8 +19,8 @@
 #include <sockerr.h>
 #include <ext.h>
 
-#define T2COMPDATE   ((unsigned int) ((18 << 9) | (4 << 5) | 28))
-#define T2BETAEXPIRE ((unsigned int) ((18 << 9) | (5 << 5) | 31))
+#define T2COMPDATE   ((unsigned int) ((18 << 9) | (5 << 5) | 18))
+#define T2BETAEXPIRE ((unsigned int) ((18 << 9) | (6 << 5) | 30))
 
 #define OPTION_TRANSBIN       0 /**/
 #define OPTION_ECHO           1
@@ -594,8 +596,10 @@ int main(int argc, char *argv[])
 	int          err,i,hostarg = 0;
 	sockaddr_in  sa;
 
-	Con("T2 - Telnet Terminal for IConnect (version 1998-04-28)"); crlf; Con("Copyright (c)1998 Thomas Much, Application Systems Heidelberg Software GmbH");crlf;
-	Con("Beta version. Expires 1998-05-31."); crlf; crlf;
+	Con("T2 - Telnet Terminal for IConnect (release 01, 1998-05-18)"); crlf; Con("Copyright (c)1998 Thomas Much, Application Systems Heidelberg Software GmbH");crlf;
+
+#ifdef BETA
+	Con("Beta version. Expires 1998-06-30."); crlf; crlf;
 	
 	if (Tgetdate() < T2COMPDATE)
 	{
@@ -608,6 +612,9 @@ int main(int argc, char *argv[])
 		Con("Beta version has expired..."); crlf;
 		return(0);
 	}
+#else
+	crlf;
+#endif
 	
 	if (argc < 2)
 	{
@@ -681,12 +688,15 @@ int main(int argc, char *argv[])
 	err = connect(t2_sock,&sa,(int)sizeof(sockaddr_in));
 	if (err == E_OK)
 	{
+#ifdef BETA
 		unsigned int datum = Tgetdate();
+#endif
 		
 		Con("Connected."); crlf;
 		
 		sfcntl(t2_sock,F_SETFL,O_NDELAY);
-		
+
+#ifdef BETA
 		if ((datum < T2COMPDATE) || (datum > T2BETAEXPIRE))
 		{
 			while (argc)
@@ -699,6 +709,7 @@ int main(int argc, char *argv[])
 				}
 			}
 		}
+#endif
 
 		open_logfile();
 		init_terminal();

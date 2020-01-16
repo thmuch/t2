@@ -64,6 +64,12 @@ Untersttzte RFCs
 1091 (terminal type)
 
 
+Bekannte Probleme
+-----------------
+"pine" l„uft noch nicht, da es sich mit VT52 nicht zufriedengibt.
+Stattdessen erstmal "elm" verwenden.
+
+
 History
 -------
 [1998-03-17]
